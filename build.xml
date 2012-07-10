@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="RetinaImages" default="build" basedir=".">
+
+  <path id="project.classpath">
+    <pathelement location="build/classes"/>
+    <fileset dir="lib" includes="**/*.jar"/>
+  </path>
+
+  <target name="javac" description="Compile java source">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src" includes="**" encoding="utf-8" destdir="build/classes"
+      source="1.5" target="1.5" nowarn="true" debug="true"
+      debuglevel="lines,vars,source" includeantruntime="true">
+      <classpath refid="project.classpath"/>
+    </javac>
+    <copy todir="build/classes">
+      <fileset dir="src"/>
+    </copy>
+  </target>
+
+  <target name="build" depends="javac" description="Build jar">
+    <jar destfile="dist/RetinaImages.jar" basedir="build/classes"/>
+  </target>
+
+  <target name="run" description="Run" depends="javac">
+    <java classname="${main.class}" failonerror="true" fork="true">
+      <classpath refid="project.classpath"/>
+    </java>
+  </target>
+
+  <target name="clean" description="Cleans the project">
+    <delete dir="build" failonerror="false"/>
+    <delete dir="dist" failonerror="false"/>
+  </target>
+
+  <target name="compile-selected-files-in-src">
+    <fail unless="files">Must set property 'files'</fail>
+    <mkdir dir="build/classes"/>
+    <javac destdir="build/classes" includes="${files}" source="1.5" srcdir="src"
+      debug="true" debuglevel="lines,vars,source" includeantruntime="true">
+      <classpath refid="project.classpath"/>
+    </javac>
+  </target>
+
+  <target name="run-selected-file-in-src" depends="javac">
+    <fail unless="run.class">Must set property 'run.class'</fail>
+    <java classname="${run.class}" failonerror="true" fork="true">
+      <classpath refid="project.classpath"/>
+    </java>
+  </target>
+
+</project>

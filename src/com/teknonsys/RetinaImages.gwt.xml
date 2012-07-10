@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+
+  <define-property name="display.type" values="retina,normal"/>
+
+  <property-provider name="display.type"><![CDATA[
+    if($wnd.devicePixelRatio==2)
+      return "retina";
+    return "normal";
+  ]]></property-provider>
+
+  <!-- For now, only worry about retina with Safari -->
+  <set-property name="display.type" value="normal">
+    <none>
+      <when-property-is name="user.agent" value="safari"/>
+    </none>
+  </set-property>
+  
+  <replace-with class="com.google.gwt.user.client.ui.impl.ClippedImageImplRetina">
+    <when-type-is class="com.google.gwt.user.client.ui.impl.ClippedImageImpl"/>
+    <when-property-is name="display.type" value="retina"/>
+  </replace-with>
+
+</module>

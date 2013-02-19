@@ -9,12 +9,17 @@
     return "normal";
   ]]></property-provider>
 
-  <!-- For now, only worry about retina with Safari -->
+  <!-- This was used to only produce extra permutations for WebKit  -->
+  <!-- But it seems as though other browsers may now support retina  -->
+  <!-- Uncomment this block to restrict retina permutations to WebKit -->
+  
+  <!--
   <set-property name="display.type" value="normal">
     <none>
       <when-property-is name="user.agent" value="safari"/>
     </none>
   </set-property>
+  -->
   
   <replace-with class="com.google.gwt.user.client.ui.impl.ClippedImageImplRetina">
     <when-type-is class="com.google.gwt.user.client.ui.impl.ClippedImageImpl"/>

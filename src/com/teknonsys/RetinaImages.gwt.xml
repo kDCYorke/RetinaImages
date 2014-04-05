@@ -4,7 +4,7 @@
   <define-property name="display.type" values="retina,normal"/>
 
   <property-provider name="display.type"><![CDATA[
-    if($wnd.devicePixelRatio==2)
+    if($wnd.devicePixelRatio>=2)
       return "retina";
     return "normal";
   ]]></property-provider>
